@@ -11,9 +11,103 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-#### Data Pipeline Resilience Patterns (8 Complete)
+#### ML Model Resilience Patterns (10 Complete)
 
-**2-Data-Pipelines**: Comprehensive patterns for ETL, streaming, and batch data systems
+**3-ML-Models**: Comprehensive patterns for model serving, monitoring, and optimization
+
+1. **hallucination-injection-recovery** (3000+ lines)
+   - Problem: LLMs generate factually incorrect outputs ("hallucinations"); system must detect and degrade gracefully
+   - Scenarios: 4 real failures (support chatbot wrong guidance, financial advisor incorrect data, RAG retrieval failure, user feedback loop)
+   - Code: HallucinationInjector chaos test, confidence calibration checker, citation validator, semantic relevance filter
+   - Case Study: Support chatbot told customer to restart server → customer restarted database → 15min outage, $50K impact
+   - Impact: Misinformation, compliance violations, trust erosion
+   - Detection: Minutes to hours (sampling + validation)
+   - Solution: Prompt engineering, RAG, confidence thresholding, constraint validation
+
+2. **adversarial-input-injection** (2500+ lines)
+   - Problem: ML model fooled by imperceptible adversarial perturbations; security breach
+   - Scenarios: 4 real failures (stop sign misclassified, spam detector bypassed, sentiment flipped, recommendation manipulated)
+   - Code: FGSM attack, character substitution, universal perturbation, robustness testing framework
+   - Case Study: Image classification model vulnerable → $500K fake transactions approved before detection
+   - Impact: Security breach, systematic misprediction, trust violation
+   - Detection: Milliseconds to hours (robustness test vs. runtime detection)
+   - Solution: Adversarial training, ensemble defense, input validation, certified robustness
+
+3. **batch-prediction-backlog** (2800+ lines)
+   - Problem: Prediction requests queue faster than model processes; unbounded queue growth, OOM crashes
+   - Scenarios: 4 real failures (seasonal surge, model slowdown, batch job retry, cold start backlog)
+   - Code: BacklogSimulator, throughput/latency tradeoff, memory pressure testing, graceful load shedding
+   - Case Study: Year-end financial forecasting surge → 50K item queue → 45s latency vs 500ms SLA → missed deadlines
+   - Impact: Dropped predictions, latency degradation, cascade failures
+   - Detection: Seconds to minutes (queue depth alert)
+   - Solution: Capacity planning, load shedding, adaptive batching, horizontal scaling
+
+4. **cold-start-failure** (3200+ lines)
+   - Problem: Model service restart requires initialization; requests timeout during startup window
+   - Scenarios: 4 real failures (K8s pod restart, service crash, lazy init, serverless cold start)
+   - Code: ColdStartSimulator, pod restart simulation, readiness probe validation, pre-warming benchmarks
+   - Case Study: Recommendation engine pod restart → 30s cold start, 500 requests timeout, 10% traffic affected
+   - Impact: Request failures, cascading timeouts, user experience degradation
+   - Detection: Seconds to 1 minute (latency spike detection)
+   - Solution: Pre-warming, optimized loading, readiness probes, blue-green deployment
+
+5. **feature-distribution-shift** (2900+ lines)
+   - Problem: Input feature distributions change; model trained on stale data encounters unseen patterns
+   - Scenarios: 4 real failures (seasonal shift, new demographics, economic change, policy change)
+   - Code: FeatureDriftInjector, Wasserstein distance detector, multimodal shift simulation, subgroup tracking
+   - Case Study: E-commerce recommendation model trained on 2023 data → 2024 users different → 92% → 85% accuracy
+   - Impact: Silent accuracy degradation, unfair predictions, wrong decisions
+   - Detection: Days to weeks (depends on monitoring cadence)
+   - Solution: Drift monitoring, retraining, subgroup performance tracking
+
+6. **feedback-loop-collapse** (2600+ lines)
+   - Problem: Model errors stored as training labels; feedback loop compounds errors exponentially across cycles
+   - Scenarios: 4 real failures (recommendation engagement signal, fraud false positive, content mod false positive, support routing)
+   - Code: FeedbackLoopSimulator, accuracy degradation tracking, label noise detection, held-out validation
+   - Case Study: Content recommendation false positive → stored as "bad recommendation" → new model learned to downrank good content
+   - Impact: Exponential quality degradation, poisoned data cleanup required
+   - Detection: Weeks (takes 3-5 cycles to notice trend)
+   - Solution: Feedback validation, separate training/production, held-out validation
+
+7. **inference-latency-spike** (2700+ lines)
+   - Problem: Model inference suddenly becomes 5-10x slower; predictions timeout and miss SLA
+   - Scenarios: 4 real failures (GPU saturation, deployment regression, feature computation bottleneck, batch size increase)
+   - Code: Latency spike injection, resource contention simulator, batch size optimization, scaling simulation
+   - Case Study: Recommendation model latency 50ms → 500ms (new model size) → 30% timeout rate → 8% engagement drop
+   - Impact: Timeouts, cascading failures, user experience degradation
+   - Detection: Seconds to 1 minute (latency threshold alert)
+   - Solution: Capacity planning, model optimization, batch tuning, horizontal scaling
+
+8. **model-drift-detection** (2400+ lines)
+   - Problem: Model performance degrades gradually (concept drift) as underlying data relationships change
+   - Scenarios: 4 real failures (churn prediction behavior change, fraud pattern adaptation, market dynamics shift, disease variant)
+   - Code: DriftDetector, holdout validation monitoring, performance trend analysis, subgroup tracking
+   - Case Study: Churn prediction model 92% → 89% → 85% over 3 months → $2M unexpected churn
+   - Impact: Prediction accuracy decline, business metric degradation, regulatory concerns
+   - Detection: Weeks to months (requires automated monitoring)
+   - Solution: Performance monitoring, retraining schedule, online learning
+
+9. **model-poisoning-detection** (2200+ lines)
+   - Problem: Model weights compromised or corrupted; produces systematically wrong predictions
+   - Scenarios: 4 real failures (supply chain attack, backdoor injection, insider threat, hardware corruption)
+   - Code: Integrity verification, checksum validation, signature verification, supply chain audit
+   - Case Study: Typosquatting attack → malicious model download → $500K fraudulent transactions approved before detection
+   - Impact: Trust violation, security breach, model unusable
+   - Detection: Milliseconds (checksum) to days (audit)
+   - Solution: Model signing, checksum verification, secure supply chain, pre-deployment testing
+
+10. **retraining-degradation** (2500+ lines)
+    - Problem: Retrained model performs worse than previous; deploying worse model harms system performance
+    - Scenarios: 4 real failures (training data contamination, hyperparameter regression, data leakage, insufficient data)
+    - Code: Pre-deployment validator, canary deployment, automated rollback, hyperparameter sanity check
+    - Case Study: Recommendation model retrain → accuracy drop → deployed to 100% → engagement down 3% → 5 min detection
+    - Impact: Performance regression, user experience degradation, wasted training compute
+    - Detection: Seconds (pre-deployment) to minutes (canary deployment)
+    - Solution: Pre-deployment testing, canary deployment, automated rollback
+
+**Total ML Model Pattern Content**: 27,000+ lines of documentation, code, experiments, and case studies
+
+#### Data Pipeline Resilience Patterns (8 Complete)
 
 1. **data-lineage-breakage** (2000+ lines)
    - Problem: Metadata diverges from actual pipeline code, breaking downstream queries

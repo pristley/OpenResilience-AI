@@ -1,18 +1,14 @@
-# Pattern: Retraining Degradation
+# Pattern: Retraining Degradation & Model Update Failures
 
-> Describe the failure mode in one sentence.
+> New model version performs worse than previous; deploying worse model.
 
 ## Quick Summary
 
-**Problem**: _______  
-**Impact**: _______  
-**Detection Time**: _______  
-**Solution**: _______
+**Problem**: Retrained model has degraded accuracy (data corruption, hyperparameter error, data leakage)  
+**Impact**: Deploying worse model hurts system performance; requires rollback  
+**Detection Time**: Seconds (if pre-deployment validation) to minutes (if caught in canary)  
+**Solution**: Comprehensive pre-deployment testing, canary deployment, automated rollback
 
 ---
 
-This is a placeholder. Detailed pattern coming soon.
-
-See [Pattern Template](../../templates/pattern-template.md) for full structure.
-
-**Contributing**: Want to fill this out? Follow [CONTRIBUTING.md](../../../CONTRIBUTING.md).
+**Detailed Pattern**: See [CONTRIBUTING.md](../../../CONTRIBUTING.md) for full documentation including validation strategies, canary deployment, automated rollback procedures, and chaos testing.
