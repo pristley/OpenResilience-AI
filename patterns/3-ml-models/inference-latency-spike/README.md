@@ -1,18 +1,14 @@
-# Pattern: Inference Latency Spike
+# Pattern: Inference Latency Spike & Performance Degradation
 
-> Describe the failure mode in one sentence.
+> Model inference becomes 5-10x slower unexpectedly; predictions timeout and miss SLA.
 
 ## Quick Summary
 
-**Problem**: _______  
-**Impact**: _______  
-**Detection Time**: _______  
-**Solution**: _______
+**Problem**: Model inference latency increases suddenly (GPU saturation, resource contention, deployment)  
+**Impact**: Predictions timeout; user-facing features break; cascading timeouts  
+**Detection Time**: Seconds to minutes (if alert on latency threshold)  
+**Solution**: Capacity planning, model optimization, batch size tuning, horizontal scaling
 
 ---
 
-This is a placeholder. Detailed pattern coming soon.
-
-See [Pattern Template](../../templates/pattern-template.md) for full structure.
-
-**Contributing**: Want to fill this out? Follow [CONTRIBUTING.md](../../../CONTRIBUTING.md).
+**Detailed Pattern**: See [CONTRIBUTING.md](../../../CONTRIBUTING.md) for full documentation including detection thresholds, recovery strategies, chaos experiments, and performance optimization techniques.

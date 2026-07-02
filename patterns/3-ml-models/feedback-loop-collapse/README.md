@@ -1,18 +1,14 @@
-# Pattern: Feedback Loop Collapse
+# Pattern: Feedback Loop Collapse & Training Data Poisoning
 
-> Describe the failure mode in one sentence.
+> Model predictions stored as "ground truth" for retraining; errors corrupt training data and cascade.
 
 ## Quick Summary
 
-**Problem**: _______  
-**Impact**: _______  
-**Detection Time**: _______  
-**Solution**: _______
+**Problem**: Model errors stored as training labels; feedback loop compounds errors across retraining cycles  
+**Impact**: Model quality degrades exponentially; poisoned data requires manual cleanup  
+**Detection Time**: Weeks (takes 3-5 cycles to notice degradation trend)  
+**Solution**: Validation before using feedback, separate training/production pipelines, held-out validation set
 
 ---
 
-This is a placeholder. Detailed pattern coming soon.
-
-See [Pattern Template](../../templates/pattern-template.md) for full structure.
-
-**Contributing**: Want to fill this out? Follow [CONTRIBUTING.md](../../../CONTRIBUTING.md).
+**Detailed Pattern**: See [CONTRIBUTING.md](../../../CONTRIBUTING.md) for full documentation including feedback validation, data poisoning detection, recovery strategies, and long-term resilience patterns.

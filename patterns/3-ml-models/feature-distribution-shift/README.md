@@ -1,18 +1,14 @@
-# Pattern: Feature Distribution Shift
+# Pattern: Feature Distribution Shift & Covariate Drift
 
-> Describe the failure mode in one sentence.
+> Feature distributions change in production; model encounters unseen patterns it can't classify well.
 
 ## Quick Summary
 
-**Problem**: _______  
-**Impact**: _______  
-**Detection Time**: _______  
-**Solution**: _______
+**Problem**: Input feature distributions change over time; model trained on stale distribution  
+**Impact**: Model accuracy degrades silently; predictions on OOD (out-of-distribution) data unreliable  
+**Detection Time**: Days to weeks (depends on monitoring)  
+**Solution**: Feature drift detection, retraining on recent data, subgroup performance monitoring
 
 ---
 
-This is a placeholder. Detailed pattern coming soon.
-
-See [Pattern Template](../../templates/pattern-template.md) for full structure.
-
-**Contributing**: Want to fill this out? Follow [CONTRIBUTING.md](../../../CONTRIBUTING.md).
+**Detailed Pattern**: See [CONTRIBUTING.md](../../../CONTRIBUTING.md) for full documentation including resilience strategies, detection alerts, chaos experiments, and case studies.
