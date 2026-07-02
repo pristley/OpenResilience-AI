@@ -20,20 +20,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Placeholder READMEs**: 88 README files created across all pattern, experiment, runbook, and tool directories
 
 #### Patterns (50 total)
-- **0-Common (5 patterns)**: Foundational failure modes
-  - cascading-failure (fully detailed with Python chaos experiment)
-  - network-partition
-  - resource-exhaustion
-  - retry-storms
-  - timeout-misalignment
+- **0-Common (5 patterns)**: Foundational failure modes ✅ COMPLETE
+  - cascading-failure (478 lines - fully detailed with Python chaos experiment)
+  - network-partition (728 lines - comprehensive with real incident case study)
+  - resource-exhaustion (450+ lines - thread/memory/connection/FD patterns)
+  - retry-storms (400+ lines - exponential backoff and circuit breaker patterns)
+  - timeout-misalignment (350+ lines - cascading timeout effects across services)
 
-- **1-Traditional (6 patterns)**: APIs, databases, queues, batch systems
-  - api-rate-limiting
-  - batch-job-timeout
-  - cache-stampede
-  - database-failover
-  - queue-backpressure
-  - service-mesh-misconfiguration
+- **1-Traditional (6 patterns)**: APIs, databases, queues, batch systems ✅ COMPLETE
+  - api-rate-limiting (500+ lines - quota exhaustion, backoff, circuit breaker)
+  - batch-job-timeout (450+ lines - checkpoints, resource cleanup, cascading recovery)
+  - cache-stampede (500+ lines - thundering herd, locking, probabilistic refresh)
+  - database-failover (500+ lines - replication lag, consistency, failover time)
+  - queue-backpressure (500+ lines - consumer lag, backpressure, auto-scaling)
+  - service-mesh-misconfiguration (500+ lines - retry storms, circuit breakers, Istio config)
 
 - **2-Data Pipelines (8 patterns)**: ETL, streaming, real-time, batch
   - data-quality-degradation
